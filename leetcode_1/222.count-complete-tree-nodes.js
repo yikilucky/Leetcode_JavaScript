@@ -1,7 +1,7 @@
 /*
- * @lc app=leetcode id=111 lang=javascript
+ * @lc app=leetcode id=222 lang=javascript
  *
- * [111] Minimum Depth of Binary Tree
+ * [222] Count Complete Tree Nodes
  */
 
 // @lc code=start
@@ -17,14 +17,17 @@
  * @param {TreeNode} root
  * @return {number}
  */
-var minDepth = function(root) {
+var countNodes = function(root) {
     if(!root) return 0;
-    const leftDepth=minDepth(root.left);
-    const rightDepth=minDepth(root.right);
-    if(!root.left&&root.right!==null) return 1+rightDepth;
-    else if(!root.right&&root.left!==null) return 1+leftDepth;
-    else return 1+Math.min(leftDepth,rightDepth);
-
+    let queue=[],count=0;
+    queue.push(root);
+    while(queue.length){
+        count++;
+        const node=queue.shift();
+        node.left&&queue.push(node.left);
+        node.right&&queue.push(node.right);
+    }
+    return count;
 };
 // @lc code=end
 

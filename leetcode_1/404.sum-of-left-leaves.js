@@ -1,7 +1,7 @@
 /*
- * @lc app=leetcode id=104 lang=javascript
+ * @lc app=leetcode id=404 lang=javascript
  *
- * [104] Maximum Depth of Binary Tree
+ * [404] Sum of Left Leaves
  */
 
 // @lc code=start
@@ -17,12 +17,16 @@
  * @param {TreeNode} root
  * @return {number}
  */
-var maxDepth = function(root) {
-    if(!root) return 0;
-    const leftDepth=maxDepth(root.left);
-    const rightDepth=maxDepth(root.right);
-    const depth=1+Math.max(leftDepth,rightDepth);
-    return depth;
+var sumOfLeftLeaves = function(root) {
+    let sum=0;
+    const getSum=root=>{
+        if(!root) return;
+        if(root.left&&!root.left.left&&!root.left.right) sum+=root.left.val;
+        getSum(root.left);
+        getSum(root.right);
+    }
+    getSum(root);
+    return sum;
 };
 // @lc code=end
 
